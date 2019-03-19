@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ztgeo.workbench.mapper.IpMappingInfoMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.ztgeo.workbench.entity.IpMappingInfo" id="ipMappingInfoMap">
+        <result property="id" column="id"/>
+        <result property="sourceHost" column="source_host"/>
+        <result property="destinationHost" column="destination_host"/>
+        <result property="mappingIp" column="mapping_ip"/>
+    </resultMap>
+
+
+    <insert id="insertIpMappingInfo" parameterType="com.ztgeo.workbench.entity.IpMappingInfo">
+       INSERT INTO ip_mapping_info(source_host,destination_host,mapping_ip) VALUES(INET_ATON(#{sourceHost}),INET_ATON(#{destinationHost}),INET_ATON(#{mappingIp}))
+    </insert>
+
+    <update id="updateIpMappingInfoById" parameterType="com.ztgeo.workbench.entity.IpMappingInfo">
+        UPDATE ip_mapping_info SET source_host=INET_ATON(#{sourceHost}),destination_host=INET_ATON(#{destinationHost}),mapping_ip=INET_ATON(#{mappingIp}) WHERE id =#{id}
+    </update>
+
+    <select id="selectIpMappingInfos" resultMap="ipMappingInfoMap">
+    SELECT id, INET_NTOA(source_host) source_host,INET_NTOA(destination_host) destination_host,INET_NTOA(mapping_ip) mapping_ip
+    FROM ip_mapping_info
+    WHERE
+    CONCAT(INET_NTOA(source_host),INET_NTOA(destination_host),INET_NTOA(mapping_ip)) LIKE CONCAT('%',#{ipContentClause},'%')
+    LIMIT #{pageNo},#{pageSize}
+    </select>
+
+    <select id="selectIpMappingInfoById" resultMap="ipMappingInfoMap">
+     SELECT INET_NTOA(source_host) source_host,INET_NTOA(destination_host) destination_host,INET_NTOA(mapping_ip) mapping_ip
+     FROM ip_mapping_info
+     where id = #{id}
+    </select>
+</mapper>
