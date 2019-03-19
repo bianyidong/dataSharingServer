@@ -54,6 +54,12 @@ public class AuthController {
         return new ObjectRestResponse<String>().data(RequestHeaderConstants.JWT_TOKEN_TYPE + token);
     }
 
+    /**
+     *
+     * @param request
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value = "refresh", method = RequestMethod.GET)
     public ObjectRestResponse<String> refreshAndGetAuthenticationToken(
             HttpServletRequest request) throws Exception {
