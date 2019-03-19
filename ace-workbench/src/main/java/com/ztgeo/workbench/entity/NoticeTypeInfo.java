@@ -40,7 +40,8 @@ public class NoticeTypeInfo implements Serializable {
 	    //
     @Column(name = "upd_user_id")
     private String updUserId;
-
+	@Transient
+	private String name;
 	public String getId() {
 		return Id;
 	}
@@ -115,5 +116,13 @@ public class NoticeTypeInfo implements Serializable {
 	 */
 	public String getUpdUserId() {
 		return updUserId;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

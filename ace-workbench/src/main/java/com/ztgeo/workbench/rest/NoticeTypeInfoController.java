@@ -1,5 +1,6 @@
 package com.ztgeo.workbench.rest;
 
+import com.github.ag.core.context.BaseContextHandler;
 import com.github.wxiaoqi.security.common.msg.ObjectRestResponse;
 import com.github.wxiaoqi.security.common.msg.TableResultResponse;
 import com.github.wxiaoqi.security.common.rest.BaseController;
@@ -25,6 +26,13 @@ public class NoticeTypeInfoController extends BaseController<NoticeTypeInfoBiz,N
     @GetMapping("getAllNoticeType")
     public TableResultResponse<NoticeTypeInfo> getAllNoticeType(@RequestParam Map<String, Object> params){
         return baseBiz.getAllNoticeType(params);
+    }
+    /**
+     * 分页查询访问API基础信息
+     */
+    @RequestMapping(value = "getAllTypeIdByUserId", method = RequestMethod.GET)
+    public TableResultResponse<NoticeTypeInfo> getAllTypeIdByUserId(@RequestParam Map<String, Object> params) {
+        return baseBiz.getAllTypeIdByUserId(BaseContextHandler.getUserID(),params);
     }
     /**
      * 添加通知类型

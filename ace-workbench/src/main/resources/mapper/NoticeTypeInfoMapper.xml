@@ -13,5 +13,17 @@
         <result property="updTime" column="upd_time"/>
         <result property="updUserId" column="upd_user_id"/>
     </resultMap>
-
+    <!--查询非用户有权限访问的所有API信息 -->
+    <select id="getAllTypeIdByUserId" resultMap="noticeTypeInfoMap">
+        SELECT
+        uki.`name`,nur.type_id
+        FROM
+        notice_base_info nbi
+        LEFT JOIN notice_user_rel nur ON nbi.notice_id = nur.notice_id
+        LEFT JOIN user_key_info uki ON nur.user_real_id = uki.user_real_id
+        where nbi.user_real_id=#{userId}
+        <if test="apiName!=null and apiName!=''">
+             and uki.`name` like concat('%',#{apiName},'%')
+        </if>
+    </select>
 </mapper>

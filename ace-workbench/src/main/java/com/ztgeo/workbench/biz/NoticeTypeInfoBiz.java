@@ -50,6 +50,16 @@ public class NoticeTypeInfoBiz extends BusinessBiz<NoticeTypeInfoMapper, NoticeT
         return new TableResultResponse<>(result.getTotal(), list);
     }
     /**
+     * 根据userId获取有权限访问的API信息
+     *
+     * @param userId 真实用户ID
+     */
+    public TableResultResponse<NoticeTypeInfo> getAllTypeIdByUserId(String userId, Map<String, Object> params) {
+        Query query = new Query(params);
+        List<NoticeTypeInfo> list = mapper.getAllTypeIdByUserId(userId, params.get("apiName"), (query.getPage() - 1) * query.getLimit(), query.getLimit());
+        return new TableResultResponse<>(list.size(), list);
+    }
+    /**
      * 新增通知类型
      */
     public void insertNoticeTypeInfo(NoticeTypeInfo noticeTypeInfo) {
