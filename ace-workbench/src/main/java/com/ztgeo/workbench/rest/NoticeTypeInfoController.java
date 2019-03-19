@@ -27,7 +27,7 @@ public class NoticeTypeInfoController extends BaseController<NoticeTypeInfoBiz,N
         return baseBiz.getAllNoticeType(params);
     }
     /**
-     * 添加通知类型信息
+     * 添加通知类型
      */
     @RequestMapping(value = "insertNoticeTypeInfo", method = RequestMethod.POST)
     public ObjectRestResponse<NoticeTypeInfo> insertNoticeTypeInfo(@RequestBody NoticeTypeInfo noticeTypeInfo) {
