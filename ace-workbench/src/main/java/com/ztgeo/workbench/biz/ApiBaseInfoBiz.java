@@ -67,12 +67,27 @@ public class ApiBaseInfoBiz extends BusinessBiz<ApiBaseInfoMapper, ApiBaseInfo> 
         Query query = new Query(params);
         List<ApiBaseInfo> list = mapper.getNotAllApiBaseInfo(userId, params.get("apiName"), (query.getPage() - 1) * query.getLimit(), query.getLimit());
         list.stream().forEach(apiBaseInfo -> {
-            String path = apiBaseInfo.getBaseUrl() + StringUtils.substringBeforeLast(apiBaseInfo.getdPath(), "/") + apiBaseInfo.getPath();
+//            String path = apiBaseInfo.getBaseUrl() + StringUtils.substringBeforeLast(apiBaseInfo.getdPath(), "/") + apiBaseInfo.getPath();
+            String path = apiBaseInfo.getBaseUrl()  + apiBaseInfo.getPath();
             apiBaseInfo.setPath(path);
         });
         return new TableResultResponse<>(list.size(), list);
     }
 
+    /**
+     * 根据userId获取有权限访问的API信息
+     *
+     * @param userId 真实用户ID
+     */
+    public TableResultResponse<ApiBaseInfo> getNotAllInterfaceInfo(String userId, Map<String, Object> params) {
+        Query query = new Query(params);
+        List<ApiBaseInfo> list = mapper.getNotAllInterfaceInfo(userId, params.get("apiName"), (query.getPage() - 1) * query.getLimit(), query.getLimit());
+        list.stream().forEach(apiBaseInfo -> {
+            String path = apiBaseInfo.getBaseUrl()+ apiBaseInfo.getPath();
+            apiBaseInfo.setPath(path);
+        });
+        return new TableResultResponse<>(list.size(), list);
+    }
     /**
      * 获取当前用户所拥有的API信息list
      *

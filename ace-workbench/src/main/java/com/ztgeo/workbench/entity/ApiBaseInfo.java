@@ -79,7 +79,9 @@ public class ApiBaseInfo implements Serializable {
     // 通用接口转发URL前缀
     @Transient
     private String dPath;
-
+    //机构名称
+    @Transient
+    private String name;
     // header列表
     @Transient
     private List<ApiHeaderInfo> apiHeaderInfoList;
@@ -316,6 +318,14 @@ public class ApiBaseInfo implements Serializable {
         this.apiType = apiType;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "ApiBaseInfo{" +
@@ -336,6 +346,7 @@ public class ApiBaseInfo implements Serializable {
                 ", updTime=" + updTime +
                 ", apiType='" + apiType + '\'' +
                 ", dPath='" + dPath + '\'' +
+                ", name='" + name + '\'' +
                 ", apiHeaderInfoList=" + apiHeaderInfoList +
                 ", apiQueryInfoList=" + apiQueryInfoList +
                 ", apiBodyInfoList=" + apiBodyInfoList +

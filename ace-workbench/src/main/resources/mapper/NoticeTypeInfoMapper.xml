@@ -13,7 +13,7 @@
         <result property="updTime" column="upd_time"/>
         <result property="updUserId" column="upd_user_id"/>
     </resultMap>
-    <!--查询非用户有权限访问的所有API信息 -->
+    <!--根据userId获取通知方API信息 -->
     <select id="getAllTypeIdByUserId" resultMap="noticeTypeInfoMap">
         SELECT
         uki.`name`,nur.type_id

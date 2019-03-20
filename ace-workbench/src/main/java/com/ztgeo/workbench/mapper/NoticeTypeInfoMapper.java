@@ -22,7 +22,7 @@ public interface NoticeTypeInfoMapper extends CommonMapper<NoticeTypeInfo> {
             "VALUES (#{ID},#{typeId},#{typeDesc},#{crtTime},#{crtUserId},#{updTime},#{updUserId})")
     void insertNoticeTypeInfo(@Param("ID") String Id, @Param("typeId") String typeId, @Param("typeDesc") String typeDesc, @Param("crtTime") Date crtTime,
                               @Param("crtUserId") String crtUserId, @Param("updTime") Date updTime, @Param("updUserId") String updUserId);
-    // 根据userId获取有权限访问的API信息
+    // 根据userId获取通知方API信息
     List<NoticeTypeInfo> getAllTypeIdByUserId(@Param("userId") String userId, @Param("apiName") Object apiName, @Param("start") int start, @Param("limit") int limit);
 
 }

@@ -21,6 +21,7 @@
         <result property="updUserId" column="upd_user_id"/>
         <result property="updTime" column="upd_time"/>
         <result property="dPath" column="dpath"/>
+        <result property="name" column="name"/>
         <result property="apiType" column="api_type"/>
         <collection property="apiHeaderInfoList" ofType="com.ztgeo.workbench.entity.ApiHeaderInfo">
             <result property="headerId" column="header_id"/>
@@ -79,6 +80,22 @@
     <select id="getNotAllApiBaseInfo" resultMap="apiBaseInfoMap">
         SELECT t.api_name,t.method,t.base_url,t.path path,t.enabled_status,d.path dpath
         FROM api_base_info t,api_router_define d WHERE t.api_owner_id!=#{userId} AND t.api_owner_id=d.crt_user_id AND t.api_type='1'
+        <if test="apiName!=null and apiName!=''">
+            and api_name like concat('%',#{apiName},'%')
+        </if>
+    </select>
+    <!--查询非用户有权限访问的所有API信息 -->
+    <select id="getNotAllInterfaceInfo" resultMap="apiBaseInfoMap">
+        SELECT
+        t.api_name,
+        uki.`name`,
+        t.method,
+        t.base_url,
+        t.path path,
+        t.enabled_status
+        FROM
+        api_base_info t,
+        user_key_info uki WHERE t.api_owner_id!=#{userId} and t.api_owner_id=uki.user_real_id
         <if test="apiName!=null and apiName!=''">
             and api_name like concat('%',#{apiName},'%')
         </if>

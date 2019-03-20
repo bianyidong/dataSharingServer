@@ -40,6 +40,7 @@ public class NoticeTypeInfo implements Serializable {
 	    //
     @Column(name = "upd_user_id")
     private String updUserId;
+    //机构名称
 	@Transient
 	private String name;
 	public String getId() {

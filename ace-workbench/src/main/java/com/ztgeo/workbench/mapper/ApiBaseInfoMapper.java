@@ -25,6 +25,8 @@ public interface ApiBaseInfoMapper extends CommonMapper<ApiBaseInfo> {
 
     // 根据userId获取有权限访问的API信息
     List<ApiBaseInfo> getNotAllApiBaseInfo(@Param("userId") String userId, @Param("apiName") Object apiName, @Param("start") int start, @Param("limit") int limit);
+    // 根据userId获取有权限访问的API信息
+    List<ApiBaseInfo> getNotAllInterfaceInfo(@Param("userId") String userId, @Param("apiName") Object apiName, @Param("start") int start, @Param("limit") int limit);
 
     // 查询所有API信息，返回API名称和标识列表
     @Select({"select api_pubkey apiPubkey,api_name apiName from api_base_info"})

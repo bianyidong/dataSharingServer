@@ -50,7 +50,7 @@ public class NoticeTypeInfoBiz extends BusinessBiz<NoticeTypeInfoMapper, NoticeT
         return new TableResultResponse<>(result.getTotal(), list);
     }
     /**
-     * 根据userId获取有权限访问的API信息
+     * 根据userId获取通知方API信息
      *
      * @param userId 真实用户ID
      */

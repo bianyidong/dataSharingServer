@@ -37,6 +37,13 @@ public class ApiBaseInfoController extends BaseController<ApiBaseInfoBiz, ApiBas
         return baseBiz.getNotAllApiBaseInfo(BaseContextHandler.getUserID(),params);
     }
     /**
+     * 分页查询访问API基础信息
+     */
+    @RequestMapping(value = "getNotAllInterfaceInfo", method = RequestMethod.GET)
+    public TableResultResponse<ApiBaseInfo> getNotAllInterfaceInfo(@RequestParam Map<String, Object> params) {
+        return baseBiz.getNotAllInterfaceInfo(BaseContextHandler.getUserID(),params);
+    }
+    /**
      * 查询单条APi详细信息
      */
     @RequestMapping(value = "getOneApiBaseInfo/{id}", method = RequestMethod.GET)
