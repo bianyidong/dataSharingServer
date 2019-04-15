@@ -36,7 +36,7 @@ spring:
             maxOpenPreparedStatements: 20
     redis:
         database: 1
-        host: ${REDIS_HOST:localhost}
+        host: ${REDIS_HOST:172.18.0.147}
         port: ${REDIS_PORT:6379}
         pool:
             max-active: 20

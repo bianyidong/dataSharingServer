@@ -75,7 +75,7 @@ public class ApiBaseInfoBiz extends BusinessBiz<ApiBaseInfoMapper, ApiBaseInfo> 
     }
 
     /**
-     * 根据userId获取有权限访问的API信息
+     * 根据userId获取非本用户的所有接口信息
      *
      * @param userId 真实用户ID
      */

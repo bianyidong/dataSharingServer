@@ -55,7 +55,6 @@ public class GateBootstrap {
         DBLog.getInstance().start();
         SpringApplication.run(GateBootstrap.class, args);
     }
-
     @Bean
     @Primary
     IUserPrincipal userPrincipal(){

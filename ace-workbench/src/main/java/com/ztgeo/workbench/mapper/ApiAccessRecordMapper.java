@@ -2,6 +2,7 @@ package com.ztgeo.workbench.mapper;
 
 import com.github.wxiaoqi.security.common.mapper.CommonMapper;
 import com.ztgeo.workbench.entity.ApiAccessRecord;
+import com.ztgeo.workbench.entity.ApiBaseInfo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.ResultType;
 import org.apache.ibatis.annotations.Select;
@@ -19,4 +20,5 @@ public interface ApiAccessRecordMapper extends CommonMapper<ApiAccessRecord> {
     @ResultType(Integer.class)
     int getApiAccessWeekRecord(@Param("yearStr") int year, @Param("monthStr") int monthValue, @Param("dayStr") int dayOfMonth);
 
+    ApiAccessRecord getOneApiAccessRecord(@Param("id") String id);
 }

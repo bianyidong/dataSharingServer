@@ -20,5 +20,9 @@
         <result property="responseType" column="response_type"/>
         <result property="userRealId" column="user_real_id"/>
     </resultMap>
+    <select id="getOneApiAccessRecord" resultMap="apiAccessRecordMap">
+        select * FROM api_access_record
+        where id = #{id}
+    </select>
 
 </mapper>

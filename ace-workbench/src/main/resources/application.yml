@@ -36,7 +36,7 @@ spring:
             maxOpenPreparedStatements: 20
     redis:
         database: 1
-        host: ${REDIS_HOST:localhost}
+        host: ${REDIS_HOST:172.18.0.147}
         port: ${REDIS_PORT:6379}
         pool:
             max-active: 20
@@ -80,8 +80,8 @@ customAttributes:
   dbName: "http_db"
   dbnoticeName: "httpNotice_db"
   #转发URL
-  safeURL: http://10.3.2.16:8000
-  URL: http://2.193.64.2:8001
+  safeURL: http://172.22.148.129:8000
+  URL: http://172.22.148.129:8001
   # sdk下载
   sdkFilePath: E:/demo.zip
   sdkSourceFilePath: E:/demo.zip

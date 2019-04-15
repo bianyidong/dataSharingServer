@@ -33,7 +33,7 @@ spring:
             maxOpenPreparedStatements: 20
     redis:
         database: 1
-        host: ${REDIS_HOST:localhost}
+        host: ${REDIS_HOST:172.18.0.147}
         port: ${REDIS_PORT:6379}
         pool:
             max-active: 20
@@ -64,7 +64,7 @@ eureka:
         serviceUrl:
 #            defaultZone: http://localhost:8761/eureka/
                     # docker 部署开启,记得将IP修改为部署所在服务器的外网IP
-            defaultZone: http://${EUREKA_HOST:127.0.0.1}:${EUREKA_PORT:8761}/eureka/
+            defaultZone: http://${EUREKA_HOST:172.18.0.147}:${EUREKA_PORT:8761}/eureka/
 # 必须配置
 feign:
   httpclient:
@@ -93,7 +93,6 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 110000
-            timeoutInMilliseconds: 110000
 
 # 配置swagger
 swagger:
@@ -121,7 +120,7 @@ redis:
          maxActive: 300
          maxIdle: 100
          maxWait: 1000
-    host: ${REDIS_HOST:localhost}
+    host: ${REDIS_HOST:172.18.0.147}
     port:  ${REDIS_PORT:6379}
     password:
     timeout: 2000
