@@ -32,7 +32,7 @@ import java.util.Objects;
 @Service
 public class ApiAccessRecordBiz extends BusinessBiz<ApiAccessRecordMapper, ApiAccessRecord> {
     /**
-     * 查询单条Api详细信息
+     * 查询单条接口记录详细信息并发送
      */
     public ApiAccessRecord getOneApiAccessRecord(String id) {
         ApiAccessRecord apiAccessRecord= mapper.getOneApiAccessRecord(id);
@@ -45,6 +45,7 @@ public class ApiAccessRecordBiz extends BusinessBiz<ApiAccessRecordMapper, ApiAc
         }else {
             apiAccessRecord.setId(apiAccessRecord.getId());
             apiAccessRecord.setResponseData(rspData);
+            apiAccessRecord.setStatus(0);
             mapper.updateByPrimaryKeySelective(apiAccessRecord);
         }
         return apiAccessRecord;

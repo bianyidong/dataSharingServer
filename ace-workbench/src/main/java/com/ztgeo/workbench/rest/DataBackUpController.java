@@ -4,10 +4,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.wxiaoqi.security.auth.client.annotation.CheckClientToken;
 import com.github.wxiaoqi.security.auth.client.annotation.CheckUserToken;
 import com.github.wxiaoqi.security.common.msg.TableResultResponse;
+import com.github.wxiaoqi.security.common.util.Query;
 import com.ztgeo.workbench.biz.DataBackUpBiz;
+import com.ztgeo.workbench.entity.ApiBaseInfo;
+import com.ztgeo.workbench.entity.NoticeRecord;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,17 +39,6 @@ public class DataBackUpController{
         }
     }
 
-    /**
-     * 根据用户登录名查询通知信息
-     */
-    @RequestMapping(value = "getApiNoticeDataDetail", method = RequestMethod.GET)
-    public TableResultResponse<JSONObject> getApiNoticeDataDetail(@RequestParam Map<String, Object> params){
-        try{
-            return dataBackUpBiz.getApiNoticeDataDetail(params);
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
+
 
 }

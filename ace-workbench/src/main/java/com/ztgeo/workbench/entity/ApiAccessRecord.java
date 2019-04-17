@@ -71,6 +71,12 @@ public class ApiAccessRecord implements Serializable {
 	// 发送方用户ID
 	@Column(name = "user_real_id")
 	private String userRealId;
+	//发送是否成功0-成功1-失败
+    @Column(name="status")
+	private  int status;
+    //发送次数
+	@Column(name="count")
+	private  int count;
 
 	@Transient
 	private String startTime;
@@ -239,4 +245,19 @@ public class ApiAccessRecord implements Serializable {
 		this.userRealId = userRealId;
 	}
 
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
 }

@@ -31,7 +31,7 @@ public class ApiAccessRecordController extends BaseController<ApiAccessRecordBiz
     }
 
     /**
-     * 查询单条APi详细信息
+     * 查询单条接口记录详细信息
      */
     @RequestMapping(value = "getOneApiAccessRecord/{id}", method = RequestMethod.GET)
     public ObjectRestResponse<ApiAccessRecord> getOneApiAccessRecord(@PathVariable String id) {

@@ -5,10 +5,13 @@ import com.alibaba.fastjson.JSONObject;
 import com.github.ag.core.context.BaseContextHandler;
 import com.github.wxiaoqi.security.common.msg.ObjectRestResponse;
 
+import com.github.wxiaoqi.security.common.msg.TableResultResponse;
+import com.github.wxiaoqi.security.common.util.Query;
 import com.github.wxiaoqi.security.common.util.UUIDUtils;
 import com.ztgeo.workbench.entity.*;
 
 import com.ztgeo.workbench.exception.ZtgeoBizException;
+import com.ztgeo.workbench.mapper.DataBackUpMapper;
 import com.ztgeo.workbench.mapper.NoticeBaseInfoMapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -21,6 +24,7 @@ import tk.mybatis.mapper.entity.Example;
 import java.time.Instant;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 通知基础信息配置表
@@ -34,7 +38,6 @@ public class NoticeBaseInfoBiz extends BusinessBiz<NoticeBaseInfoMapper, NoticeB
 
     @Autowired
     private NoticeUserRelBiz noticeUserRelBiz;
-
     /**
      * 获取所有可接收通知的用户名和主键ID
      */

@@ -14,9 +14,9 @@ spring:
         default-property-inclusion: non_null
     datasource:
         name: test
-        url: jdbc:mysql://172.18.0.147:3306/ag_dict?useUnicode=true&characterEncoding=UTF8
+        url: jdbc:mysql://172.22.148.129:3306/ag_dict?useUnicode=true&characterEncoding=UTF8
         username: root
-        password: 123456
+        password: ztgeo123
         # 使用druid数据源
         type: com.alibaba.druid.pool.DruidDataSource
         driver-class-name: com.mysql.jdbc.Driver
@@ -36,12 +36,12 @@ spring:
             maxOpenPreparedStatements: 20
     redis:
         database: 1
-        host: ${REDIS_HOST:172.18.0.147}
+        host: ${REDIS_HOST:172.22.148.129}
         port: ${REDIS_PORT:6379}
         pool:
             max-active: 20
     rabbitmq:
-        host: 172.18.0.147
+        host: 172.22.148.129
         port: 5672
         username: ztgeo
         password: ztgeo

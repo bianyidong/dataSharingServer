@@ -9,10 +9,10 @@ import org.apache.ibatis.annotations.Select;
 
 /**
  * API访问记录表
- * 
+ *
  * @author zoupeidong
- * @email 806316372@qq.com
  * @version 2018-10-09 14:54:00
+ * @email 806316372@qq.com
  */
 public interface ApiAccessRecordMapper extends CommonMapper<ApiAccessRecord> {
 
@@ -20,5 +20,6 @@ public interface ApiAccessRecordMapper extends CommonMapper<ApiAccessRecord> {
     @ResultType(Integer.class)
     int getApiAccessWeekRecord(@Param("yearStr") int year, @Param("monthStr") int monthValue, @Param("dayStr") int dayOfMonth);
 
+    //查询单条接口记录信息
     ApiAccessRecord getOneApiAccessRecord(@Param("id") String id);
 }

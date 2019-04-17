@@ -4,12 +4,14 @@ package com.ztgeo.workbench.mapper;
 import com.github.wxiaoqi.security.common.msg.ObjectRestResponse;
 import com.ztgeo.workbench.entity.NoticeBaseInfo;
 import com.github.wxiaoqi.security.common.mapper.CommonMapper;
+import com.ztgeo.workbench.entity.NoticeRecord;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 通知基础信息配置表
@@ -30,4 +32,4 @@ public interface NoticeBaseInfoMapper extends CommonMapper<NoticeBaseInfo> {
             "VALUES (#{noticeId},#{userRealId},#{name},#{username},#{noticePath},#{method},#{noticeNote},#{crtTime},1,#{updTime},1)")
     void insertNoticeBaseInfo(@Param("noticeId") String noticeId, @Param("userRealId") String userRealId,@Param("name") String name, @Param("username") String username,
                               @Param("noticePath") String noticePath,@Param("method") String method,@Param("noticeNote") String noticeNote,@Param("crtTime") Date crtTime,@Param("updTime") Date updTime);
-}
+   }
