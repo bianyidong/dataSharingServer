@@ -45,7 +45,7 @@ public class NoticeBaseInfoBiz extends BusinessBiz<NoticeBaseInfoMapper, NoticeB
         // 查询所有可通知的机构列表to
         Example example = new Example(NoticeBaseInfo.class);
         example.selectProperties("noticeId", "name");
-        example.createCriteria().andNotEqualTo("userRealId", BaseContextHandler.getUserID());
+        example.createCriteria().andNotEqualTo("userRealId", BaseContextHandler.getUserID()).andEqualTo("noticeNote", id);
         List<NoticeBaseInfo> allNoticeCorp = mapper.selectByExample(example); // 所有可通知机构
         System.out.println("==========="+allNoticeCorp);
         // 查询该用户已配置的需通知的机构列表

@@ -42,19 +42,19 @@ public class NoticeBaseInfo implements Serializable {
     @Column(name = "notice_note")
     private String noticeNote;
 	
-	    //
+	    //创建时间
     @Column(name = "crt_time")
     private Date crtTime;
 	
-	    //
+	    //创建UserID
     @Column(name = "crt_user_id")
     private String crtUserId;
 	
-	    //
+	    //更行时间
     @Column(name = "upd_time")
     private Date updTime;
 	
-	    //
+	    //更新UserID
     @Column(name = "upd_user_id")
     private String updUserId;
 
