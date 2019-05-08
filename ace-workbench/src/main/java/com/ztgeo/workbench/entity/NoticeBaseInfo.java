@@ -37,7 +37,9 @@ public class NoticeBaseInfo implements Serializable {
 	    //http请求方法
     @Column(name = "method")
     private String method;
-	
+	//通知类型
+	@Column(name = "type_id")
+	private String typeID;
 	    //通知说明
     @Column(name = "notice_note")
     private String noticeNote;
@@ -191,29 +193,46 @@ public class NoticeBaseInfo implements Serializable {
 	public void setUpdUserId(String updUserId) {
 		this.updUserId = updUserId;
 	}
-
+	/**
+	 * 获取：
+	 */
 	public String getUsername() {
 		return username;
 	}
-
+	/**
+	 * 设置：
+	 */
 	public void setUsername(String username) {
 		this.username = username;
 	}
+	/**
+	 * 获取：
+	 */
+	public String getTypeID() {
+		return typeID;
+	}
+	/**
+	 * 设置：
+	 */
+	public void setTypeID(String typeID) {
+		this.typeID = typeID;
+	}
 
-    @Override
-    public String toString() {
-        return "NoticeBaseInfo{" +
-                "noticeId='" + noticeId + '\'' +
-                ", userRealId='" + userRealId + '\'' +
-                ", name='" + name + '\'' +
-                ", username='" + username + '\'' +
-                ", noticePath='" + noticePath + '\'' +
-                ", method='" + method + '\'' +
-                ", noticeNote='" + noticeNote + '\'' +
-                ", crtTime=" + crtTime +
-                ", crtUserId='" + crtUserId + '\'' +
-                ", updTime=" + updTime +
-                ", updUserId='" + updUserId + '\'' +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "NoticeBaseInfo{" +
+				"noticeId='" + noticeId + '\'' +
+				", userRealId='" + userRealId + '\'' +
+				", name='" + name + '\'' +
+				", username='" + username + '\'' +
+				", noticePath='" + noticePath + '\'' +
+				", method='" + method + '\'' +
+				", typeID='" + typeID + '\'' +
+				", noticeNote='" + noticeNote + '\'' +
+				", crtTime=" + crtTime +
+				", crtUserId='" + crtUserId + '\'' +
+				", updTime=" + updTime +
+				", updUserId='" + updUserId + '\'' +
+				'}';
+	}
 }

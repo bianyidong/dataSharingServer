@@ -28,8 +28,10 @@ public interface NoticeBaseInfoMapper extends CommonMapper<NoticeBaseInfo> {
     @Select("select count(*) from notice_base_info aar where user_real_id=#{userRealId} ")
     int selectNoticeBaseInfoByUserid(@Param("userRealId") String userRealId);
     //添加通知配置信息
-    @Insert(" INSERT INTO notice_base_info(notice_id,user_real_id,name,username,notice_path,method,notice_note,crt_time,crt_user_id,upd_time,upd_user_id) " +
-            "VALUES (#{noticeId},#{userRealId},#{name},#{username},#{noticePath},#{method},#{noticeNote},#{crtTime},1,#{updTime},1)")
+    @Insert(" INSERT INTO notice_base_info(notice_id,user_real_id,name,username,notice_path,method,type_id,notice_note,crt_time,crt_user_id,upd_time,upd_user_id) " +
+            "VALUES (#{noticeId},#{userRealId},#{name},#{username},#{noticePath},#{method},#{typeID},#{noticeNote},#{crtTime},1,#{updTime},1)")
     void insertNoticeBaseInfo(@Param("noticeId") String noticeId, @Param("userRealId") String userRealId,@Param("name") String name, @Param("username") String username,
-                              @Param("noticePath") String noticePath,@Param("method") String method,@Param("noticeNote") String noticeNote,@Param("crtTime") Date crtTime,@Param("updTime") Date updTime);
-   }
+                              @Param("noticePath") String noticePath,@Param("method") String method,@Param("typeID") String typeID,@Param("noticeNote") String noticeNote,@Param("crtTime") Date crtTime,@Param("updTime") Date updTime);
+   @Select("SELECT type_desc from notice_type_info where type_id=#{typeID} and crt_user_id=#{userRealId}")
+    String selectNoticeNote(@Param("typeID") String typeID,@Param("userRealId") String userRealId);
+}

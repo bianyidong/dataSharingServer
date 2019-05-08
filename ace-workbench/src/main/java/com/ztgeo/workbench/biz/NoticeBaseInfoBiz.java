@@ -3,6 +3,8 @@ package com.ztgeo.workbench.biz;
 import com.alibaba.fastjson.JSONObject;
 
 import com.github.ag.core.context.BaseContextHandler;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.github.wxiaoqi.security.common.msg.ObjectRestResponse;
 
 import com.github.wxiaoqi.security.common.msg.TableResultResponse;
@@ -25,6 +27,7 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * 通知基础信息配置表
@@ -45,12 +48,10 @@ public class NoticeBaseInfoBiz extends BusinessBiz<NoticeBaseInfoMapper, NoticeB
         // 查询所有可通知的机构列表to
         Example example = new Example(NoticeBaseInfo.class);
         example.selectProperties("noticeId", "name");
-        example.createCriteria().andNotEqualTo("userRealId", BaseContextHandler.getUserID()).andEqualTo("noticeNote", id);
+        example.createCriteria().andNotEqualTo("userRealId", BaseContextHandler.getUserID()).andEqualTo("typeID", id);
         List<NoticeBaseInfo> allNoticeCorp = mapper.selectByExample(example); // 所有可通知机构
-        System.out.println("==========="+allNoticeCorp);
         // 查询该用户已配置的需通知的机构列表
         List<NoticeUserRel> noticeCorpList = noticeUserRelBiz.selectNoticeCorpList(id);
-        System.out.println("========="+noticeCorpList);
         // 封装结果
         JSONObject resultJson = new JSONObject();
         resultJson.put("allNoticeCorp", allNoticeCorp);
@@ -58,19 +59,19 @@ public class NoticeBaseInfoBiz extends BusinessBiz<NoticeBaseInfoMapper, NoticeB
         return resultJson;
     }
 
-    public ObjectRestResponse<NoticeBaseInfo> getnoticeBaseInfo() {
-        //1.调用获取id的方法获得实体类
+    public TableResultResponse<NoticeBaseInfo> getnoticeBaseInfo(Map<String, Object> params) {
         Example example = new Example(NoticeBaseInfo.class);
-        example.createCriteria().andEqualTo("userRealId", getUserId());
-        example.selectProperties("method", "noticePath");
-        List<NoticeBaseInfo> userBaseList = selectByExample(example);
-        if (userBaseList.size() == 0) {
-            throw new ZtgeoBizException("根据ID未查询到相关用户！");
+        Object noticeNote = params.get("noticeNote");
+        if(Objects.equals(null,noticeNote)){ // 没有搜索条件
+            example.createCriteria().andEqualTo("userRealId",BaseContextHandler.getUserID());
+        }else{ // 有搜索条件
+            example.createCriteria().andEqualTo("userRealId",BaseContextHandler.getUserID()).andLike("typeID","%"+noticeNote+"%");
         }
-        //2. 通过属性转移到返回类中
-        NoticeBaseInfo noticeBaseInfo = new NoticeBaseInfo();
-        BeanUtils.copyProperties(userBaseList.get(0), noticeBaseInfo);
-        return new ObjectRestResponse<NoticeBaseInfo>().data(noticeBaseInfo);
+        Query query = new Query(params);
+        this.query2criteria(query, example);
+        Page<NoticeBaseInfo> result = PageHelper.startPage(query.getPage(), query.getLimit());
+        List<NoticeBaseInfo> list = this.selectByExample(example);
+        return new TableResultResponse<>(result.getTotal(), list);
 
     }
 
@@ -94,8 +95,9 @@ public class NoticeBaseInfoBiz extends BusinessBiz<NoticeBaseInfoMapper, NoticeB
             String username =BaseContextHandler.getUsername();
             String noticePath = noticeBaseInfo.getNoticePath();
             String method = noticeBaseInfo.getMethod();
-            String noticeNote ="";
-            mapper.insertNoticeBaseInfo(noticeId, userRealId,name, username, noticePath, method, noticeNote, currentDate, currentDate);
+            String typeID=noticeBaseInfo.getTypeID();
+            String noticeNote= mapper.selectNoticeNote(typeID,userRealId);
+            mapper.insertNoticeBaseInfo(noticeId, userRealId,name, username, noticePath, method,typeID, noticeNote, currentDate, currentDate);
         } catch (Exception e) {
             e.printStackTrace();
         }

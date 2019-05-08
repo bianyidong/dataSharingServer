@@ -74,8 +74,8 @@ public class UserKeyInfoBiz extends BusinessBiz<UserKeyInfoMapper,UserKeyInfo> {
     }
 
     /**
-     *@描述  声测策略 客户端秘钥对rsa生成，身份库中读取，平台秘钥对读取配置文件
-     *@参数  [] 是否是java使用 如果是 结果直接返回 如果不是 则转换成xml格式
+     *@描述  客户端秘钥对rsa身份库中读取，平台秘钥对读取配置文件
+     *@参数  [] 判断语言类型，Java或者其他语言，显示不同的格式
      *@返回值  com.github.wxiaoqi.security.common.msg.ObjectRestResponse<com.ztgeo.workbench.entity.UserKeyInfoResult>
      *@创建人  Wei
      *@创建时间  2018/9/6
@@ -85,44 +85,32 @@ public class UserKeyInfoBiz extends BusinessBiz<UserKeyInfoMapper,UserKeyInfo> {
         String clientPriKey = null;//客户端私钥
         String symmetricPubkey=null; //参谋秘钥
         //1.调用获取id的方法获得实体类
-        UserKeyInfo userKeyInfo = new UserKeyInfo();
-        userKeyInfo.setUserRealId(getUserId());
-        UserKeyInfo userKeyInfoNow = mapper.selectOne(userKeyInfo);
-        ThrowBizExceptionUtil.checkObjIsNull(userKeyInfoNow,"根据ID未查询到相关用户!");
-        ThrowBizExceptionUtil.checkObjIsNull(userKeyInfoNow.getUserIdentityId(),"根据ID未查询到相关用户!");
-        //2. 使用工具类生成客户端对称加密的秘钥
-        Map<String, String> paramSecretKey = UserkeyUtils.generateResSecret();
-        ThrowBizExceptionUtil.checkObjIsNull(paramSecretKey,"生成秘钥失败！");
-        //3. 根据传入的生成方式确定返回值
-        /*
-        * java返回和保存到库中的base64的客户端私钥 和 服务端公钥 主程序解密时应该反编译后生成私钥公钥使用
-        * 非java语言返回xml格式字符串，但保存在库中的为base64的串
-        *
-        * */
+        Example example = new Example(UserKeyInfo.class);
+        example.createCriteria().andEqualTo("userRealId",getUserId());
+        example.selectProperties("symmetricPubkey","userIdentityId","signSecretKey", "signPubKey");
+        List<UserKeyInfo> userKeyInfoList = selectByExample(example);
+        if(userKeyInfoList.size()==0){
+            throw new ZtgeoBizException("根据ID未查询到相关用户！");
+        }
+       //2.判断不通的语言显示格式
         if(type==false){ //需要转换为非java版可以使用的秘钥信息
-            clientPriKey = UserkeyUtils.getRSAPrivateKeyAsNetFormat(paramSecretKey.get("priKey"));//非java版提供的私钥
+            clientPriKey = UserkeyUtils.getRSAPrivateKeyAsNetFormat(userKeyInfoList.get(0).getSignSecretKey());//非java版提供的私钥
             workBenchPubKey =UserkeyUtils.getRSAPublicKeyAsNetFormat(secretConfig.getWFpubKey());//配置文件中的平台公钥的转换
         }else{
-            clientPriKey = paramSecretKey.get("priKey");
+            clientPriKey = userKeyInfoList.get(0).getSignSecretKey();
             workBenchPubKey = secretConfig.getWFpubKey();
         }
         ThrowBizExceptionUtil.checkStrIsBlank(clientPriKey,"客户端私钥获取失败！");
         ThrowBizExceptionUtil.checkStrIsBlank(workBenchPubKey,"平台公钥获取失败！");
-        //4. 调用参数加密秘钥
-        symmetricPubkey = UserkeyUtils.generateAesKey();
+        //3. 获得加密秘钥
+        symmetricPubkey = userKeyInfoList.get(0).getSymmetricPubkey();
         ThrowBizExceptionUtil.checkStrIsBlank(symmetricPubkey,"参数加密秘钥获取失败！");
-        //5.组装参数
-        userKeyInfoNow.setUpdTime(new Date()); //更新时间
-        userKeyInfoNow.setSymmetricPubkey(symmetricPubkey);//参数秘钥
-        userKeyInfoNow.setSignSecretKey(clientPriKey);//客户私钥
-        userKeyInfoNow.setSignPubKey(paramSecretKey.get("pubKey"));//客户公钥
-        userKeyInfoNow.setUpdUserId(getUserId());
-        //6.更新数据
-        mapper.updateByPrimaryKeySelective(userKeyInfoNow);
-        //7. 相关信息返回
+        //4. 相关信息返回
         UserKeyInfoResult userKeyInfoResult = new UserKeyInfoResult();
-        BeanUtils.copyProperties(userKeyInfoNow,userKeyInfoResult);
+        userKeyInfoResult.setSymmetricPubkey(symmetricPubkey);
+        userKeyInfoResult.setSignSecretKey(clientPriKey);
         userKeyInfoResult.setWorkBenchPubkey(workBenchPubKey);
+        userKeyInfoResult.setUserIdentityId(userKeyInfoList.get(0).getUserIdentityId());
         userKeyInfoResult.setRouterSafeURL(routerSafeURL);
         return new ObjectRestResponse<UserKeyInfo>().data(userKeyInfoResult);
     }
@@ -146,6 +134,15 @@ public class UserKeyInfoBiz extends BusinessBiz<UserKeyInfoMapper,UserKeyInfo> {
         userKeyInfo.setCrtTime(new Date());
         userKeyInfo.setUpdUserId(BaseContextHandler.getUserID());
         userKeyInfo.setUpdTime(new Date());
+        //数据加密密钥
+        userKeyInfo.setSymmetricPubkey(UserkeyUtils.generateAesKey());
+        Map<String, String> paramSecretKey = UserkeyUtils.generateResSecret();
+        ThrowBizExceptionUtil.checkObjIsNull(paramSecretKey,"生成秘钥失败！");
+        //签名私钥
+        userKeyInfo.setSignSecretKey(paramSecretKey.get("priKey"));
+        //签名公钥
+        userKeyInfo.setSignPubKey(paramSecretKey.get("pubKey"));
+
         // 新增用户身份标识记录
         mapper.insertSelective(userKeyInfo);
     }

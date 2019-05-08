@@ -13,9 +13,9 @@ import java.util.Map;
 /**
  * 通知基础信息配置表
  *
- * @author zoupeidong
- * @version 2018-09-14 11:58:02
- * @email 806316372@qq.com
+ * @author bianyidong
+ * @version 2018-04-24 11:58:02
+ * @email 1056460744@qq.com
  */
 @Service
 public class NoticeRecordBiz extends BusinessBiz<NoticeRecordMapper, NoticeRecord> {

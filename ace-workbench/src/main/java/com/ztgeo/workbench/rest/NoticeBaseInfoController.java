@@ -60,8 +60,8 @@ public class NoticeBaseInfoController extends BaseController<NoticeBaseInfoBiz, 
 
     @ApiOperation(value = "查询通知地址配置相关信息）")
     @GetMapping("getnoticeBaseInfo")
-    public ObjectRestResponse<NoticeBaseInfo> getnoticeBaseInfo() {
-        return baseBiz.getnoticeBaseInfo();
+    public TableResultResponse<NoticeBaseInfo> getnoticeBaseInfo(@RequestParam Map<String, Object> params) {
+        return baseBiz.getnoticeBaseInfo(params);
     }
 
     /**
