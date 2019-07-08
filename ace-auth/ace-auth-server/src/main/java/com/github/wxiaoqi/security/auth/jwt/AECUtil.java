@@ -61,6 +61,7 @@ public class AECUtil {
             e.printStackTrace();
         }
         // 此处使用BASE64做转码。
+        // 此处使用BASE64做转码。
         return result;
 
     }

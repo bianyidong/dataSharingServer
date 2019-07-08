@@ -55,6 +55,6 @@ public class NoticeUserRelBiz extends BusinessBiz<NoticeUserRelMapper, NoticeUse
         Example example = new Example(NoticeUserRel.class);
         example.selectProperties("noticeId");
         example.createCriteria().andEqualTo("userRealId", userId).andEqualTo("typeId", typeId);
-        return mapper.selectByExample(example);
+        return  mapper.selectByExample(example);
     }
 }

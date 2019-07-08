@@ -69,6 +69,7 @@ public class AuthClientRunner implements CommandLineRunner {
     @Scheduled(cron = "0 0/1 * * * ?")
     public void refreshUserPubKey(){
         BaseResponse resp = serviceAuthFeign.getUserPublicKey(serviceAuthConfig.getClientId(), serviceAuthConfig.getClientSecret());
+
         if (resp.getStatus() == HttpStatus.OK.value()) {
             ObjectRestResponse<byte[]> userResponse = (ObjectRestResponse<byte[]>) resp;
             this.userAuthConfig.setPubKeyByte(userResponse.getData());

@@ -16,6 +16,7 @@ import javax.persistence.*;
 public class ApiAuthRel implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+
 	    //权限关系id
     @Id
     private String relId;

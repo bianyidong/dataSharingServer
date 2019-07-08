@@ -26,6 +26,8 @@ package com.github.wxiaoqi.security.auth.configuration;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 /**
  * @author ace

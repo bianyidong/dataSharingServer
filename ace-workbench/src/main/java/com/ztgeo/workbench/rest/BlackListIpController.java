@@ -10,8 +10,6 @@ import com.ztgeo.workbench.entity.BlackListIp;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-
-
 @RestController
 @RequestMapping("blackListIp")
 //@CheckClientToken
@@ -24,6 +22,7 @@ public class BlackListIpController extends BaseController<BlackListIpBiz, BlackL
     public TableResultResponse<BlackListIp> getAllBlackListIp(@RequestParam Map<String, Object> params) {
         return baseBiz.getAllBlackListIp(params);
     }
+
 
     /**
      * 查询单条IP详细信息

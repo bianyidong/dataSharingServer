@@ -10,12 +10,12 @@ spring:
         default-property-inclusion: non_null
     redis:
         database: 1
-        host: ${REDIS_HOST:172.22.148.129}
+        host: ${REDIS_HOST:127.0.0.1}
         port: ${REDIS_PORT:6379}
         pool:
             max-active: 20
     rabbitmq:
-        host: ${RABBIT_MQ_HOST:172.22.148.129}
+        host: ${RABBIT_MQ_HOST:127.0.0.1}
         port:  ${RABBIT_MQ_PORT:5672}
         username: ztgeo
         password: ztgeo
@@ -108,12 +108,12 @@ eureka:
         healthCheckUrlPath: /health
         # docker 部署开启,记得将IP修改为部署所在服务器的外网IP
         prefer-ip-address: true
-        ip-address: 172.22.148.129
+        ip-address: 127.0.0.1
     client:
         serviceUrl:
 #            defaultZone: http://localhost:8761/eureka/
                     # docker 部署开启,记得将IP修改为部署所在服务器的外网IP
-            defaultZone: http://${EUREKA_HOST:172.22.148.129}:${EUREKA_PORT:8761}/eureka/
+            defaultZone: http://${EUREKA_HOST:127.0.0.1}:${EUREKA_PORT:8761}/eureka/
 
 #请求和响应GZIP压缩支持
 feign:

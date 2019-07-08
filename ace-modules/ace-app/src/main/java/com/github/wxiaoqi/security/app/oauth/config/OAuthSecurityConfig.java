@@ -160,6 +160,7 @@ public class OAuthSecurityConfig extends AuthorizationServerConfigurerAdapter {
                 OauthUser user = (OauthUser) authentication.getUserAuthentication().getPrincipal();
                 /** 自定义一些token属性 ***/
                 final Map<String, Object> additionalInformation = new HashMap<>();
+                System.out.println(888+accessToken.getExpiresIn());
                 Date expireTime = DateTime.now().plusSeconds(accessToken.getExpiresIn()).toDate();
                 additionalInformation.put(CommonConstants.JWT_KEY_EXPIRE, expireTime);
                 additionalInformation.put(CommonConstants.JWT_KEY_USER_ID, user.getId());
